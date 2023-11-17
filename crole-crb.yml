@@ -1,0 +1,30 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    rbac.authorization.kubernetes.io/autoupdate: "true"
+  name: opsmx-cr
+rules:
+- apiGroups:
+  - '*'
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- nonResourceURLs:
+  - '*'
+  verbs:
+  - '*'
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: opsmx-crb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole 
+  name: opsmx-cr
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: NAMESPACE
